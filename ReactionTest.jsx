@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 import React, { Component } from 'react';
 
 class ReactionTest extends Component {
@@ -25,7 +24,7 @@ class ReactionTest extends Component {
                     message: '지금 클릭',
                 });
                 this.startTime = new Date();
-            }, Math.floor(Math.random() * 1000 + 2000));
+            }, Math.floor(Math.random() * 1000 + 2000)); // 2~3초 랜덤
         } else if (state === 'ready') {
             clearTimeout(this.timeout);
             this.setState({
@@ -43,12 +42,21 @@ class ReactionTest extends Component {
             });
         }
     }
+
+    onReset = () => {
+        this.setState({
+            result: [],
+        })
+    };
     
     renderAverage = () => {
         const { result } = this.state;
         return result.length === 0
             ? null
-            : <div>평균 시간: {result.reduce((a, c) => a + c) / result.length}ms</div>
+            :<> 
+                <div>평균 시간: {result.reduce((a, c) => a + c) / result.length}ms</div>
+                <button onClick={this.onReset}>리셋</button>
+            </>
     }
 
     render() {
